@@ -1,4 +1,6 @@
-﻿namespace Hangman;
+﻿using System.Globalization;
+
+namespace Hangman;
 
 class Program
 {
@@ -6,6 +8,7 @@ class Program
     {
         const int MAX_GUESSES = 5;
         const int EMPTY_LIST_CHECK = 0;
+        const char UNDERSCORE = '_';
 
         List<string> words = new List<string>()
         {
@@ -35,13 +38,13 @@ class Program
                 } 
                 else 
                 {
-                    Console.Write('_');      
+                    Console.Write(UNDERSCORE);      
                 }
 
-                if(enteredLetters.Count > EMPTY_LIST_CHECK && enteredLetters.Last() == c){
+                if(enteredLetters.Count > EMPTY_LIST_CHECK && enteredLetters.Last() == c)
+                {
                     correctLetters.Add(c);
-                }
-                
+                }   
             }
             Console.WriteLine(string.Empty);
             
@@ -57,7 +60,7 @@ class Program
             if(correctLetters.Count == selectedWord.Length)
             {   
                 Console.WriteLine("#################");
-                Console.WriteLine($"You won with { MAX_GUESSES - guesses} guesses remaining");
+                Console.WriteLine($"You won with { MAX_GUESSES - guesses} lives remaining");
                 Console.WriteLine("#################");
                 break;
             }
@@ -76,7 +79,8 @@ class Program
 
             if(!selectedWord.Contains(input))
             {
-              guesses++;  
+              guesses++;
+              Console.WriteLine($"You have {MAX_GUESSES - guesses} lives left");  
             } 
         }
     }
